@@ -5,3 +5,18 @@
 .nav-item .nav-link a{
   color: #ff9052;
 }
+
+.image_nav{
+  width: 30px;
+
+}
+.image_mask{
+  width: 30px;
+  height: 30px;
+  border-radius: 900px;
+  margin-top: 7px;
+  overflow: hidden;
+}
+.image_mask img{
+  width: 30px;
+}

@@ -1,0 +1,342 @@
+<div class="col-md-12 mt-2 box-user-edit">
+  <form  #userEditForm="ngForm" (ngSubmit)="onSubmit(userEditForm)">
+
+<div class="row">
+
+
+  <div class="col-md-4">
+    <div class="form-group m-5 col-md-12" >
+      <h3 class="mb-4" style="color:#707070;">Mi Perfil</h3>
+
+       <div *ngIf="identity && identity.image" class="">
+         <img src="{{url + 'user/getimage/' + identity.image}}" class="image_edit">
+       </div>
+       <angular-file-uploader
+            [config]="afuConfig"
+            [resetUpload]=resetVar
+            (ApiResponse)="imageUpload($event)">
+      </angular-file-uploader>
+
+    </div>
+
+
+  </div>
+
+    <div class="col-md-8 mt-5 mb-5" style="background:#fff;">
+
+       <div class="alert alert-success" *ngIf="status == 'success'">
+         Los datos se han guardado correctamente.
+       </div>
+       <div class="alert alert-danger" *ngIf="status == 'error'">
+         Ha ocurrido un error, vuelve a intentarlo.
+       </div>
+
+        <div class="row">
+          <div class="form-group mt-1 col-md-6">
+             <label for="name">Nombre</label>
+             <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" required pattern="[a-zA-Z]+">
+             <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+               El nombre no es valido.
+               </small>
+          </div>
+          <div class="form-group col-md-6">
+             <label for="lastname">Apellido</label>
+             <input type="text" name="lastname"  class="form-control"  #lastname="ngModel" [(ngModel)]="user.lastname" required pattern="[a-zA-Z]+">
+             <small *ngIf="!lastname.valid && lastname.touched" class="invalid-feedback d-block">
+               El apellido no es valido.
+               </small>
+          </div>
+          <div class="form-group col-md-6">
+             <label for="email">Email</label>
+             <input type="text" name="email"  class="form-control" #email="ngModel" [(ngModel)]="user.email" required
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+             <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+               El email no es valido.
+               </small>
+          </div>
+
+          <div class="form-group col-md-6">
+             <label for="phone">Teléfono</label>
+             <input type="text" name="phone"  class="form-control" #phone="ngModel" [(ngModel)]="user.phone" required pattern="[0-9]+">
+             <small *ngIf="!phone.valid && phone.touched" class="invalid-feedback d-block">
+               El teléfono no es valido.
+               </small>
+          </div>
+
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-10"></div>
+
+                <div class="col-md-2">
+                      <input type="submit" value="Guardar" class="btn mb-2"
+                      style="width:100%;background-color:#ff9052;color:white;" [disabled]="userEditForm.invalid">
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+       <div class="col-md-12">
+         <div class="row" style="border-bottom: 1px solid #e6e6e6">
+
+           <div class="col-md-1 sections" *ngIf="section == 'orders'"
+           style="background:#ff9052;color:white;padding:1%;padding-bottom:0%;text-align:center;">
+             <h6>Pedidos</h6>
+           </div>
+
+           <div class="col-md-1 sections" *ngIf="section != 'orders'"
+           (click)="goToOrders()"
+
+           style="color:#777777;padding:1%;padding-bottom:0%;text-align:center;">
+             <h6>Pedidos</h6>
+           </div>
+
+           <div class="col-md-2 sections" *ngIf="section == 'directions'"
+            style="background:#ff9052;color:white;padding:1%;padding-bottom:0%;text-align:center;">
+             <h6>Direcciones</h6>
+           </div>
+
+
+           <div class="col-md-2 sections" *ngIf="section != 'directions'"
+            (click)="goToDirections()"
+           style="color:#777777;padding:1%;padding-bottom:0%;text-align:center;">
+             <h6>Direcciones</h6>
+           </div>
+
+         </div>
+       </div>
+
+       <div class="col-md-12" *ngIf="section == 'orders'">
+
+         <div class="row">
+
+           <div class="col-md-1" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Foto
+           </div>
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Nombre
+           </div>
+           <div class="col-md-3" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Detalles
+           </div>
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Total
+           </div>
+
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Envío
+           </div>
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Pago
+           </div>
+
+         </div>
+
+         <div class="row" *ngFor="let order of orders">
+
+           <div class="col-md-1" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             <img src="https://api.zerdaly.com/api/business/getimage/product/{{getProductImage(order.products_id)}}" style="width:100%;">
+           </div>
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             {{getProductName(order.products_id)}}
+           </div>
+
+           <div class="col-md-3" style="color:#777777;padding:1%;border:1px solid #e6e6e6;">
+             {{getProductDetails(order.products_id)}}
+           </div>
+
+           <div class="col-md-2" style="color:#777777;text-align:center;padding:1%;border:1px solid #e6e6e6;">
+             ${{order.total}}
+           </div>
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+
+             <h6 *ngIf="order.shipping_status == 0" style="color:red;">No enviado.</h6>
+             <h6 *ngIf="order.shipping_status != 0" style="color:green;">Enviado.</h6>
+
+           </div>
+
+           <div class="col-md-2" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Completado
+           </div>
+
+         </div>
+
+         <div class="row" *ngIf="orders == ''">
+           <h6 style="color:#777;" class="pt-2">No has realizado un pedido.</h6>
+         </div>
+       </div>
+
+       <div class="col-md-12" *ngIf="section == 'directions'">
+
+         <div class="row p-2">
+           <div class="col-md-9">
+
+           </div>
+           <div class="col-md-3">
+             <button type="button" name="button" class="btn" style="background:#ff9052;color:white;width:100%;"
+             data-toggle="modal" data-target="#newDirectionModal"  (click)="newLocation()">Nueva Dirección</button>
+           </div>
+         </div>
+
+         <div class="row">
+
+           <div class="col-md-4" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Ciudad
+           </div>
+
+           <div class="col-md-4" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Descripción
+           </div>
+
+           <div class="col-md-4" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             Acción
+           </div>
+
+         </div>
+
+         <div class="row" *ngFor="let direction of directions">
+
+           <div class="col-md-4" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             {{direction.city}}
+           </div>
+
+           <div class="col-md-4" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             {{direction.description}}
+           </div>
+
+           <div class="col-md-4" style="color:#777777;padding:1%;text-align:center;border:1px solid #e6e6e6;">
+             <button type="button" name="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#directionModal"  (click)="editLocation(direction)">Editar</button>
+           </div>
+
+         </div>
+
+         <div class="row" *ngIf="directions == ''">
+           <h6 style="color:#777;" class="pt-2">No has registrado una dirección.</h6>
+         </div>
+
+       </div>
+
+    </div>
+
+</div>
+
+</form>
+
+</div>
+
+<!-- New Location Modal -->
+<div class="modal fade" id="newDirectionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Dirección</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #userNewLocation="ngForm" (ngSubmit)="userSaveNewLocation(userNewLocation)">
+        <div class="modal-body">
+
+          <div class="alert alert-success" *ngIf="status_new_location == 'success'">
+            Los datos se han guardado correctamente.
+          </div>
+          <div class="alert alert-danger" *ngIf="status_new_location == 'error'">
+            Ha ocurrido un error, vuelve a intentarlo.
+          </div>
+          <div class="row">
+
+            <div class="form-group col-md-6">
+              <label>Elige tu ciudad</label>
+
+              <select class="browser-default custom-select" #city="ngModel" [(ngModel)]="location.city" name="city"
+              style="border:2px #ff9052 solid"  required>
+                  <option value="" selected>Ciudad</option>
+                  <option  [value]="item" *ngFor="let item of cities">{{item}}</option>
+              </select>
+
+              <small *ngIf="!city.valid && city.touched" class="invalid-feedback d-block">
+                Elige una ciudad.
+                </small>
+
+            </div>
+            <div class="form-group col-md-6">
+               <label for="description">Descripción</label>
+               <input type="text" name="newDescription"  class="form-control"  #newDescription="ngModel" [(ngModel)]="location.description"
+                required>
+               <small *ngIf="!newDescription.valid && newDescription.touched" class="invalid-feedback d-block">
+                  La descripción no es valido.
+                 </small>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn" style="background:#ff9052;color:white;" [disabled]="userNewLocation.invalid">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Location Modal -->
+<div class="modal fade" id="directionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Dirección</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form #userEditLocation="ngForm" (ngSubmit)="userSaveEditedLocation(userEditLocation)">
+        <div class="modal-body">
+
+          <div class="alert alert-success" *ngIf="status_edit_location == 'success'">
+            Los datos se han guardado correctamente.
+          </div>
+          <div class="alert alert-danger" *ngIf="status_edit_location == 'error'">
+            Ha ocurrido un error, vuelve a intentarlo.
+          </div>
+          <div class="row">
+
+            <div class="form-group col-md-6">
+              <label>Elige tu ciudad</label>
+
+              <select class="browser-default custom-select" #city="ngModel" [(ngModel)]="location.city" name="city"
+              style="border:2px #ff9052 solid"  required>
+                  <option value="" selected>{{location.city}}</option>
+                  <option  [value]="item" *ngFor="let item of cities">{{item}}</option>
+              </select>
+
+              <small *ngIf="!city.valid && city.touched" class="invalid-feedback d-block">
+                Elige una ciudad.
+                </small>
+
+            </div>
+            <div class="form-group col-md-6">
+               <label for="description">Descripción</label>
+               <input type="text" name="description"  class="form-control"  #editDescription="ngModel" [(ngModel)]="location.description">
+               <small *ngIf="!editDescription.valid && editDescription.touched" class="invalid-feedback d-block">
+                  La descripción no es valido.
+                 </small>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn" style="background:#ff9052;color:white;" [disabled]="userEditLocation.invalid">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

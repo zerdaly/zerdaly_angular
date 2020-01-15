@@ -1,1 +1,153 @@
-<p>home works!</p>
+<!-- Start of Slides -->
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active slide-1 ">
+
+    <div class="col-md-12">
+
+      <div class="row">
+
+         <div class="col-lg-2 col-md-12  col-md-12 padding-cero">
+
+         </div>
+
+         <div class="col-lg-4 col-md-12 pt-5 pb-5 padding-cero" style="color:white;">
+           <h2 class="mt-5">Empezar tu tienda en línea nunca había sido tan fácil.</h2>
+           <p>Te damos todo lo que necesitas para empezar y crecer tu tienda en línea.
+            recibe pagos, controla tus ventas e incluso puedes tener tu página web personalizada
+            a tu gusto.
+           </p>
+
+           <div class="zerdaly-business">
+             <a href="http://negocios.zerdaly.com" target="_black">
+             Empieza ahora</a>
+           </div>
+
+         </div>
+
+         <div class="col-lg-4 col-md-12 pt-5 pb-5 padding-cero">
+           <img src="../../assets/images/online-shop.png">
+         </div>
+
+         <div class="col-lg-2 col-md-12">
+
+         </div>
+
+      </div>
+
+    </div>
+
+    </div>
+    <div class="carousel-item slide-2">
+      <div class="col-md-12">
+
+        <div class="row">
+
+           <div class="col-lg-2">
+
+           </div>
+
+           <div class="col-lg-4  pt-5 pb-5 padding-cero" style="color:white;">
+             <h2 class="mt-5 pt-5">Puedes pagar pagar en línea de forma segura.</h2>
+             <p>Tu confianza es nuestra prioridad.
+                Nos enfocamos en facilitar tus proceso de compra con tu tarjeta de la forma más segura posible.
+             </p>
+
+
+           </div>
+
+           <div class="col-lg-4 pt-5 pb-5 padding-cero">
+             <img src="../../assets/images/credit-card.png">
+           </div>
+
+           <div class="col-lg-2">
+
+           </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- End OF Slides -->
+<!-- Random Products -->
+<div class="container pt-2 pb-5">
+
+  <h4 class="pt-2" style="color:#777;">Productos aleatorios
+    <button type="button" name="button" class="btn btn-sm" style="color:white;background:#ff9052;"
+    [routerLink]="['/productos/']"> Ver más</button>
+
+   </h4>
+
+  <div class="row">
+
+    <div class="col-md-4 productView" *ngFor="let product of randomProducts" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+      <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+
+      <div class="row pt-2">
+
+        <div class="col-6" style="color:#777;">
+          <h6>{{product.name}}</h6>
+        </div>
+        <div class="col-6" style="text-align:right;color:#777;">
+          <h6>${{product.price}}</h6>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="col-md-12 about-us">
+
+  <h3>Nuestra visión es innovar a través del comercio electrónico.</h3>
+
+  <div class="row">
+
+    <div class="col-5">
+      <hr style="border:0.5px solid white;">
+    </div>
+
+    <div class="col-2">
+         <strong>.</strong>
+    </div>
+
+    <div class="col-5">
+      <hr style="border:0.5px solid white;">
+    </div>
+
+  </div>
+
+  <h4>Tú también puedes formar parte ¡Empieza tu tienda en línea ahora! </h4>
+
+  <div class="row pt-3">
+
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+      <div class="zerdaly-business-about-us">
+        <a href="http://negocios.zerdaly.com" target="_black">
+        Empieza ahora</a>
+      </div>
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+
+</div>

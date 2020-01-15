@@ -1,0 +1,98 @@
+.slide-1{
+  background: url("/assets/images/slide-1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+ .slide-2{
+  background: url("/assets/images/slide-2.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.about-us{
+  background: url("/assets/images/slide-1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  padding: 20%;
+  text-align: center;
+  color: white;
+}
+.zerdaly-business{
+  text-align: center;
+  width: 40%;
+  border: 2px #fff solid;
+  padding: 1%;
+
+}
+
+.zerdaly-business a{
+  color: white;
+}
+.zerdaly-business-about-us{
+  text-align: center;
+  width: 100%;
+  border: 2px #fff solid;
+  padding: 1%;
+
+}
+
+.zerdaly-business-about-us a{
+  color: white;
+}
+
+.productView {
+  cursor:pointer;
+}
+
+
+@media only screen and (max-width: 480px) {
+    .padding-cero{
+    }
+    .padding-cero img{
+      width: 100%;
+    }
+}
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+  .padding-cero{
+    padding: 10px;
+  }
+  .padding-cero img{
+    width: 30%;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  .padding-cero{
+    padding: 10px;
+    text-align: center;
+
+  }
+  .padding-cero h2{
+    text-align: left;
+    font-size: 40px;
+  }
+
+  .padding-cero p{
+    text-align: left;
+    font-size: 30px;
+
+  }
+
+  .zerdaly-business{
+    text-align: center;
+    width: 40%;
+    border: 2px #fff solid;
+  }
+  .zerdaly-business a{
+    font-size: 30px;
+    color: white;
+  }
+  .padding-cero img{
+
+    width: 90%;
+    top: -200px;
+  }
+}
+@media only screen and (min-width: 959px) {
+  .padding-cero img{
+    width: 95%;
+  }
+}

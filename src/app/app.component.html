@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;border-bottom: 1px solid #e6e6e6;">
   <a class="navbar-brand" [routerLink]="['/inicio']">Zerdaly</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,10 +13,14 @@
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['/inicio']">Inicio <span class="sr-only">(current)</span></a>
       </li>
+
       <li class="nav-item">
-        <a class="nav-link" href="#">Negocios</a>
+        <a  class="nav-link" [routerLink]="['/productos']">Productos</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item">
+        <a class="nav-link" href="https://negocios.zerdaly.com" target="_blank">Negocios</a>
+      </li>
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Nosotros
         </a>
@@ -25,17 +29,125 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" [routerLink]="['/contacto']">Contacto</a>
         </div>
-      </li>
+      </li> -->
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!identity">
         <a class="nav-link" [routerLink]="['/login']">Login</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!identity">
         <a class="nav-link" [routerLink]="['/registro']">Registro</a>
+      </li>
+      <div class="image_mask">
+        <li *ngIf="identity && identity.image" class="nav-item">
+          <img src="{{url + 'user/getimage/' + identity.image}}" class="image_nav">
+        </li>
+      </div>
+      <li class="nav-item dropdown" *ngIf="identity && identity.name">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{identity.name +" " +identity.lastname}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['/perfil']">Mi Perfil</a>
+          <!-- <a class="dropdown-item" [routerLink]="['/ubicaciones']">Ubicaciones</a> -->
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/logout/1']">Salir</a>
+
+        </div>
       </li>
     </ul>
 
+
+
   </div>
 </nav>
-
 <router-outlet></router-outlet>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4"  style="background:#ff9052;">
+
+  <!-- Footer Links -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5  style="color:white;font-family:'pacifico';" >Zerdaly</h5>
+        <p style="color:white;">Innovando a través del comercio electrónico.</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase" style="color:white;">Links</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a [routerLink]="['/empresa']" style="color:white;">Empresa</a>
+          </li>
+
+          <li>
+            <a [routerLink]="['/empresa']" style="color:white;">Nosotros</a>
+          </li>
+          <li>
+            <a href="https://negocios.zerdaly.com" style="color:white;">Negocios</a>
+          </li>
+          <li>
+            <a style="color:white;" [routerLink]="['/productos']">Productos</a>
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 mb-md-0 mb-3">
+
+        <!-- Links -->
+        <h5 class="text-uppercase" style="color:white;">Social</h5>
+
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.instagram.com/zerdaly_do/" target="_blank" style="color:white;" >Instagram</a>
+          </li>
+          <li>
+            <a href="https://www.facebook.com/zerdaly.dom/" target="_blank" style="color:white;">Facebook</a>
+          </li>
+          <li>
+            <a href="https://twitter.com/zerdaly_do" target="_blank" style="color:white;">Twitter</a>
+          </li>
+
+          <li>
+            <a style="color:white;" [routerLink]="['/empresa']">info@zerdaly.com</a>
+
+          </li>
+
+        </ul>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3" style="color:white;">© 2020 Copyright:
+    <a href="https://zerdaly.com" style="color:white;"> ZERDALY, LLC</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

@@ -1,0 +1,263 @@
+<div class="">
+
+  <div class="row">
+
+    <div class="col-md-2" style="border-right:0.5px solid #e3e3e3">
+
+      <div class="p-2">
+        <div class="input-group md-form form-sm form-2 pl-0">
+            <input class="form-control my-0 py-1 red-border" type="text" placeholder="Buscar..." aria-label="Search"
+            #searchText>
+            <div class="input-group-append"
+            (click)="search(searchText.value)">
+              <span class="input-group-text red lighten-3" id="basic-text1"><i class="fas fa-search text-grey"
+                  aria-hidden="true"></i></span>
+            </div>
+          </div>
+      </div>
+
+      <div class="p-2">
+
+        <h6 style="color:#777;">Categorías</h6>
+        <hr>
+
+<!-- Accesorios section -->
+        <div class="productView" (click)="goToAccesories()" *ngIf="categorySelected !='accesories'">
+          <h6  class="p-1" style="color:#777;">Accesorios <i class="fas fa-headphones"  aria-hidden="true"></i></h6>
+        </div>
+
+        <div class="productView"  *ngIf="categorySelected =='accesories'" style="background:#ff9052;color:white;">
+          <h6  class="p-1">Accesorios <i class="fas fa-headphones"  aria-hidden="true"></i></h6>
+        </div>
+
+        <!-- Belleza section -->
+
+        <div class="productView" (click)="goToBeauty()" *ngIf="categorySelected !='beauty'">
+          <h6 class="p-1" style="color:#777;" >Belleza <i class="fas fa-palette"  aria-hidden="true"></i></h6>
+        </div>
+
+        <div class="productView"  *ngIf="categorySelected =='beauty'" style="background:#ff9052;color:white;">
+          <h6 class="p-1">Belleza <i class="fas fa-palette"  aria-hidden="true"></i></h6>
+        </div>
+
+        <!-- Vestimentas section -->
+
+        <div class="productView" (click)="goToClothing()" *ngIf="categorySelected !='clothing'">
+          <h6 class="p-1" style="color:#777;" >Vestimentas <i class="fas fa-tshirt"  aria-hidden="true"></i></h6>
+        </div>
+
+        <div class="productView" *ngIf="categorySelected =='clothing'" style="background:#ff9052;color:white;">
+          <h6 class="p-1">Vestimentas <i class="fas fa-tshirt"  aria-hidden="true"></i></h6>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <div class="col-md-10">
+
+      <!-- Random Products -->
+      <div class="container pt-2 pb-5" *ngIf="searchResult == null && categorySelected == null">
+
+        <h4 class="pt-2" style="color:#777;">Productos aleatorios </h4>
+
+        <div class="row">
+
+          <div class="col-md-4 productView" *ngFor="let product of randomProducts" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+            <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+
+            <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{product.name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>${{product.price}}</h6>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- End of Random products -->
+
+      <!-- Search result -->
+
+      <div class="container pt-2 pb-5" *ngIf="searchResult != null">
+
+        <h4 class="pt-2" style="color:#777;">Resultado de busqueda "{{searchResult}}"</h4>
+        <hr>
+
+        <h5 style="color:#777;">Productos</h5>
+
+        <div *ngIf="productsSearch == ''">
+          <hr>
+          <h6 style="color:#777;">No se encontraron productos.</h6>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-3 productView" *ngFor="let product of productsSearch" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+            <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+
+            <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{product.name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>${{product.price}}</h6>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <h5 class="pt-2" style="color:#777;">Negocios</h5>
+
+        <div *ngIf="businessesSearch == ''">
+          <hr>
+          <h6 style="color:#777;">No se encontraron negocios.</h6>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-3 productView" *ngFor="let business of businessesSearch" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+            <!-- <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;"> -->
+
+            <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{business.business_name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>{{business.city}}</h6>
+              </div>
+
+            </div>
+            <!-- <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{product.name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>${{product.price}}</h6>
+              </div>
+
+            </div> -->
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Category search -->
+      <div class="container pt-2 pb-5" *ngIf="categorySelected != null">
+
+        <h4 class="pt-2" style="color:#777;" *ngIf="categorySelected == 'accesories'">Accesorios</h4>
+        <h4 class="pt-2" style="color:#777;" *ngIf="categorySelected == 'beauty'">Belleza</h4>
+        <h4 class="pt-2" style="color:#777;" *ngIf="categorySelected == 'clothing'">Vestimentas</h4>
+
+
+        <div *ngIf="accesoriesSearch == ''">
+          <hr>
+          <h6 style="color:#777;">No se encontraron accesorios.</h6>
+
+        </div>
+
+        <div *ngIf="beautySearch == ''">
+          <hr>
+          <h6 style="color:#777;">No se encontro nada.</h6>
+
+        </div>
+
+        <div *ngIf="clothingSearch == ''">
+          <hr>
+          <h6 style="color:#777;">No se encontraron vestimentas.</h6>
+
+        </div>
+
+
+        <div class="row">
+
+          <!-- Accesorios products -->
+
+          <div class="col-md-4 productView"
+          *ngFor="let product of accesoriesSearch" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+            <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+
+            <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{product.name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>${{product.price}}</h6>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Belleza products -->
+
+
+          <div class="col-md-4 productView"
+          *ngFor="let product of beautySearch" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+            <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+
+            <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{product.name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>${{product.price}}</h6>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Vestimentas products -->
+
+
+          <div class="col-md-4 productView"
+           *ngFor="let product of clothingSearch" style="padding:1%;border:1px solid #e6e6e6;" (click)="seeProductDetails(product)">
+            <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+
+            <div class="row pt-2">
+
+              <div class="col-6" style="color:#777;">
+                <h6>{{product.name}}</h6>
+              </div>
+              <div class="col-6" style="text-align:right;color:#777;">
+                <h6>${{product.price}}</h6>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<br>

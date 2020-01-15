@@ -3,3 +3,13 @@
   font-family: pacifico;
   src: url('/assets/font/Pacifico-Regular.ttf') format("truetype");
 } */
+@font-face {
+  font-family: 'pacifico';
+  src: url('assets/fonts/Pacifico-Regular.ttf') format('truetype');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'kanit';
+  src: url('assets/fonts/Kanit-Regular.ttf') format('truetype');
+  font-style: normal;
+}

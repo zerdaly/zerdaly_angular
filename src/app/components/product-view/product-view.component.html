@@ -1,0 +1,150 @@
+
+<div class="container pt-5">
+
+  <div class="row" *ngIf="product != null && business != null">
+
+    <div class="col-md-5">
+    <img src="https://api.zerdaly.com/api/business/getimage/product/{{product.image}}" style="width:100%;">
+    </div>
+
+    <div class="col-md-7">
+      <h3 style="color:#777;">{{product.name}}</h3>
+      <hr>
+      <h3 style="color:#ff9052;">${{product.price}}</h3>
+
+      <h6 style="color:#777;">Descripción</h6>
+      <p style="color:#777;">{{[product.description]}}</p>
+
+      <hr>
+
+      <div class="row">
+
+        <div class="col-md-2">
+          <button type="button" name="button" class="btn" style="background:#ff9052;color:white;"
+            data-toggle="modal" data-target="#buyNowModal"(click)="buyProductNow()">Comprar</button>
+        </div>
+
+        <div class="col-md-10 p-2">
+          <h6 style="color:#777;">{{product.on_stock}} disponible</h6>
+        </div>
+
+      </div>
+
+      <hr>
+
+      <h6 style="color:#777;">Negocio: <strong>{{business.business_name}}</strong></h6>
+      <h6 style="color:#777;">Ciudad: <strong>{{business.city}}</strong></h6>
+
+    </div>
+
+  </div>
+
+  <h5 class="pt-3" style="color:#777;">Comentarios</h5>
+  <hr>
+
+  <h6 class="pt-2 pb-2" style="color:#777;">Viene pronto...</h6>
+
+
+</div>
+
+<!-- Buy now modal -->
+<div class="modal fade" id="buyNowModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+*ngIf="product != null && business != null">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel" style="color:#777;">Comprar ahora</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+
+          <div class="alert alert-danger" *ngIf="processError == 'Fields empty'">
+            <h6 class="pt-1">Por favor, completa todos los campos.</h6>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="processError == 'Fix date'">
+            <h6 class="pt-1">Utiliza una fecha válida. Ej: 11/22</h6>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="processError == 'Fix card number'">
+            <h6 class="pt-1">Utiliza un número de tarjeta válido. Ej: 4242 4242 4242 4242</h6>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="processError == 'Fix card cvv'">
+            <h6 class="pt-1">Utiliza un CVV válido. Ej: 532</h6>
+          </div>
+          <!-- Server validation -->
+
+          <div class="alert alert-danger" *ngIf="processError == 'Wrong card number'">
+            <h6 class="pt-1">El número de la tarjeta no es válido. Revisa e intentalo de nuevo.</h6>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="processError == 'Wrong card month'">
+            <h6 class="pt-1">El mes de la tarjeta no es válido. Revisa e intentalo de nuevo.</h6>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="processError == 'Wrong card year'">
+            <h6 class="pt-1">El año de la tarjeta no es válido. Revisa e intentalo de nuevo.</h6>
+          </div>
+
+          <div class="alert alert-danger" *ngIf="processError == 'Try again'">
+            <h6 class="pt-1">Ha ocurrido un error, revisa e intentalo otra vez.</h6>
+          </div>
+
+          <div class="alert alert-success" *ngIf="processError == 'payment successful'">
+            <h6 class="pt-1">El pago se ha realizado correctamente.</h6>
+          </div>
+
+
+
+          <h6 style="color:#777;">Método de pago</h6>
+          <div class="row">
+
+            <div class="form-group col-md-6">
+               <input type="text" name="card_number" class="form-control" #card_number
+                required pattern="[0-9]+" placeholder="4242424242424242"maxlength="16">
+            </div>
+
+            <div class="form-group col-3">
+               <input type="text" class="form-control" #card_date
+                required placeholder="11/24" maxlength="5">
+            </div>
+
+            <div class="form-group col-3">
+               <input type="text" class="form-control" #card_cvv
+                required placeholder="CVV" maxlength="4">
+            </div>
+
+
+          </div>
+
+          <h6 style="color:#777;">Dirección</h6>
+
+          <div class="btn btn-danger p-1" *ngIf="directions == ''" style="color:white;" (click)="goToProfile()"  data-dismiss="modal">
+            Debes asociar por lo menos una dirección a tu cuenta.
+          </div>
+
+
+          <select class="browser-default custom-select" #city  required>
+              <option *ngFor="let item of directions" value="{{item.id}}">{{item.city}}</option>
+          </select>
+
+          <h6 class="pt-2" style="color:#777;">Resumen</h6>
+
+          <h6 style="color:#777;">Costo producto: ${{product.price}}</h6>
+          <h6 style="color:#777;">Costo de envío: ${{business.shipping_price}}</h6>
+
+        </div>
+        <div class="modal-footer">
+
+          <h5 style="color:#777;" class="pt-1">Total: ${{product.price + business.shipping_price}}</h5>
+          <button type="submit" class="btn" style="background:#ff9052;color:white;"
+           (click)="placeOrder(card_number.value,card_date.value,card_cvv.value,city.value)"
+          >Comprar</button>
+
+        </div>
+    </div>
+  </div>
+</div>
