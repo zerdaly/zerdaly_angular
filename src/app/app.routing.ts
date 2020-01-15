@@ -28,9 +28,6 @@ const appRoutes: Routes = [
   {path:'ubicaciones',component:LocationsComponent},
   {path:'productos',component:ProductsComponent},
   {path:'productos/:id',component:ProductViewComponent},
-// /  {path:'nosotros',component:AboutComponent},
-
-
   {path:'**',component:ErrorComponent},
 ];
 

@@ -19,6 +19,7 @@ export class UserEditComponent implements OnInit {
   public status_new_location;
   public status_edit_location;
   public url;
+  public resetVar;
   afuConfig = {
     multiple: false,
     formatsAllowed: ".jpg,.png,.jpeg",

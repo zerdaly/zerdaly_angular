@@ -14,7 +14,7 @@
        <div class="alert alert-danger" *ngIf="status == 'error'" style="margin-left:25%;margin-right:25%;">
          El login no se ha completado correctamente, vuelve a intentarlo.
        </div>
-      <form  #loginForm="ngForm" (ngSubmit)="onSubmit(LoginForm)">
+      <form  #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
 
         <div class="form-group pt-2" style="margin-left:25%;margin-right:25%;">
            <input type="text" name="email"  class="form-control" #email="ngModel" [(ngModel)]="user.email" required
